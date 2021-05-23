@@ -1,0 +1,19 @@
+---
+- name: Adding Proxmox VE no-subscription repository
+  apt_repository:
+    repo: "deb http://download.proxmox.com/debian/pve {{ansible_distribution_release}} pve-no-subscription"
+    filename: pve-no-subscription
+    state: present
+    update_cache: false
+  notify:
+    - update apt cache
+
+- name: Removing Proxmox VE enterprise (subscription) repository
+  apt_repository:
+    repo: "deb https://enterprise.proxmox.com/debian/pve {{ansible_distribution_release}} pve-enterprise"
+    filename: pve-enterprise
+    state: absent
+    update_cache: false
+  notify:
+    - update apt cache
+
